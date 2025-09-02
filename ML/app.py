@@ -5,14 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import predict as pd
 import analysis as al
 import json
-from typing import List
-from pyngrok import ngrok
-import nest_asyncio
-import uvicorn
 
 class Image(BaseModel):
     userId: str
-    url: List[str]
+    url: list
     location: str
     rainAct: float
     rainNorm: float
@@ -86,8 +82,3 @@ async def getAnalysis(req: Analysis):
         req.temp,
         req.hum
     )   
-
-ngrok_tunnel = ngrok.connect(8000)
-print('Public URL:',ngrok_tunnel.public_url)
-nest_asyncio.apply()
-uvicorn.run(app,port=8000)
